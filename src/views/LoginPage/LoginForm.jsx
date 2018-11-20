@@ -6,6 +6,7 @@ import {
   InputAdornment,
   FormControl
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { AccountCircle, Lock } from '@material-ui/icons';
 
 export default class LoginForm extends Component {
@@ -36,10 +37,10 @@ export default class LoginForm extends Component {
         </FormControl>
         <div className="form-buttons">
           <Button variant="contained" color="primary" className="standard-btn login-btn">
-            Login
+            <Link to="/dashboard">Zaloguj </Link>
           </Button>
           <Button variant="contained" color="secondary" className="standard-btn register-btn">
-            Rejestracja
+            <Link to="/register">Rejestracja </Link>
           </Button>
         </div>
       </form>

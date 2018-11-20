@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
 
 export default class RegisterForm extends Component {
   render() {
@@ -80,7 +82,7 @@ export default class RegisterForm extends Component {
         />
         <div className="form-buttons">
           <Button variant="contained" color="secondary" className="standard-btn register-btn">
-            Register
+            <Link to="/dashboard">Register </Link>
           </Button>
         </div>
       </form>
