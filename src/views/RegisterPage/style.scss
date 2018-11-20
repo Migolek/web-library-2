@@ -1,0 +1,38 @@
+.register-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .card-box {
+    padding: 30px 45px;
+  }
+}
+
+.register-form {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
+  .register-input {
+    margin: 15px;
+    flex: 1 1 calc(50% - 60px);
+  }
+  .form-buttons {
+    flex: 1 1 100%;
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
+}
+
+
+.register-header {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  align-items: center;
+  .login-title {
+    font-family: 'Montserrat';
+  }
+}
