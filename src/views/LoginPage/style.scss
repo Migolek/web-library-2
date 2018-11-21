@@ -1,0 +1,39 @@
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .card-box {
+    padding: 30px 45px;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  .form-input {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .form-buttons {
+    margin-top: 40px;
+    .standard-btn {
+      margin: 20px;
+    }
+  }
+}
+
+.login-header {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  align-items: center;
+  .logo-img {
+    max-width: 200px;
+  }
+  .login-title {
+    font-family: 'Montserrat';
+  }
+}

@@ -1,0 +1,10 @@
+.dashboard-page {
+  .app-content {
+    display: flex;
+    height: calc(100vh - 94px);
+    .main-content {
+      flex-grow: 1;
+      overflow-y: scroll;
+    }
+  }
+}
