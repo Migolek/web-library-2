@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Card,
   CardActionArea,
-  CardMedia,
   CardContent,
   Typography,
   CardActions,

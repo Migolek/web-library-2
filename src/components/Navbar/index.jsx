@@ -26,6 +26,7 @@ export default class Navbar extends Component {
             <IconButton
               aria-haspopup="true"
               color="inherit"
+              onClick={() => window.location.replace('/dashboard/admin')}
             >
               <AccountCircle />
             </IconButton>

@@ -1,0 +1,15 @@
+.dashboard-page-admin {
+  justify-content: space-around;
+  display: flex;
+  padding: 30px;
+  .single-card {
+    padding: 15px;
+    .card-title {
+      font-size: 14px;
+      font-family: 'Montserrat';
+      font-weight: 500;
+      color: #000;
+    }
+  }
+  
+}

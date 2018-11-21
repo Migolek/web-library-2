@@ -10,8 +10,8 @@ import Admin from './Admin';
 
 export default () => (
   <Switch>
-    <Route path="/dashboard" component={User} />
-    <Route path="/dashboard/admin" component={Admin} />
+    <Route exact path="/dashboard" component={User} />
+    <Route exact path="/dashboard/admin" component={Admin} />
     <Route component={() => <Redirect to="/dashboard" />} />
   </Switch>
 );
