@@ -1,4 +1,12 @@
 .navbar {
+  .toolbar {
+    justify-content: space-between;
+  }
+  .home-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
   .logo-img {
     max-width: 40px;
   }

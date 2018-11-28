@@ -13,7 +13,7 @@ export default class Admin extends Component {
         <Sidebar />
         <div className="dashboard-page-admin">
         <Switch>
-          <Route path="/dashboard/admin/employees" component={Employees} />
+          <Route exact path="/dashboard/admin/employees" component={Employees} />
           <Route exact path="/dashboard/admin/resources" component={Resources} />
           <Route exact path="/dashboard/admin/statistics" component={Statistics} />
           {/* <Route component={() => <Redirect to="/dashboard/admin" />} /> */}

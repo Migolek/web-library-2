@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextField, Button, FormControl, InputLabel, Select, OutlinedInput } from '@material-ui/core';
+import { TextField, Button, FormControl, InputLabel, Select, OutlinedInput, FormLabel } from '@material-ui/core';
 import './style.scss';
 
 class SearchBar extends Component {
@@ -47,14 +47,27 @@ class SearchBar extends Component {
               <option value={30}>Horror</option>
             </Select>
           </FormControl>
-          <TextField
-            id="year-name"
-            label="Rok produkcji"
-            className="form-field"
-            margin="normal"
-            type="number"
-            variant="outlined"
-          />
+          <FormControl variant="outlined">
+            <FormLabel component="legend">Rok produkcji</FormLabel>
+            <div className="year-inputs">
+              <TextField
+                id="year-name-from"
+                label="od"
+                className="form-field"
+                margin="normal"
+                type="number"
+                variant="outlined"
+              />
+              <TextField
+                id="year-name-to"
+                label="do"
+                className="form-field"
+                margin="normal"
+                type="number"
+                variant="outlined"
+              />
+            </div>
+          </FormControl>
           <Button variant="contained" color="primary">
             Szukaj
           </Button>
