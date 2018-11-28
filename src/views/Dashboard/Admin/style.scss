@@ -1,3 +1,9 @@
+.admin-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
 .dashboard-page-admin {
   justify-content: space-around;
   display: flex;

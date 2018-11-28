@@ -1,47 +1,24 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardContent,
-  Typography,
-  CardActions,
-  Button
-} from '@material-ui/core';
+import Sidebar from '../../../components/Sidebar';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Employees from './Employees';
+import Resources from './Resources';
+import Statistics from './Statistics';
 import './style.scss'
 
 export default class Admin extends Component {
   render() {
     return (
-      <div className="dashboard-page-admin">
-        <Card className="single-card">
-          <CardContent>
-            <Typography className="card-title" color="textSecondary" gutterBottom>
-              Dodaj pracownika
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button fullWidth color="primary" variant="contained" size="small">Dodaj</Button>
-          </CardActions>
-        </Card>
-        <Card className="single-card">
-          <CardContent>
-            <Typography className="card-title" color="textSecondary" gutterBottom>
-              Sprawdź statystyki
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button fullWidth color="primary" variant="contained" size="small">Sprawdź</Button>
-          </CardActions>
-        </Card>
-        <Card className="single-card">
-          <CardContent>
-            <Typography className="card-title" color="textSecondary" gutterBottom>
-              Dodaj lub usuń film
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button fullWidth color="primary" variant="contained" size="small">Dodaj/Usuń</Button>
-          </CardActions>
-        </Card>
+      <div className="admin-wrapper">
+        <Sidebar />
+        <div className="dashboard-page-admin">
+        <Switch>
+          <Route path="/dashboard/admin/employees" component={Employees} />
+          <Route exact path="/dashboard/admin/resources" component={Resources} />
+          <Route exact path="/dashboard/admin/statistics" component={Statistics} />
+          {/* <Route component={() => <Redirect to="/dashboard/admin" />} /> */}
+        </Switch>
+        </div>
       </div>
     )
   }
