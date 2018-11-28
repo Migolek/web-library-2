@@ -11,7 +11,7 @@ export default class Dashboard extends Component {
       <div className="dashboard-page">
         <Navbar />
         <div className="app-content">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <div className="main-content">
             <Content />
           </div>
