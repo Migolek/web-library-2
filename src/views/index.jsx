@@ -11,16 +11,14 @@ import RegisterPage from './RegisterPage';
 import Dashboard from './Dashboard'
 
 const auth = Boolean(localStorage.getItem('auth'));
-console.log('auth', auth, typeof auth);
 export default () => (
   <Switch>
-    {auth &&
+    {auth === true &&
       <Route path="/dashboard" component={Dashboard} />
     }
     <Route exact path="/" component={LoginPage} />
     <Route path="/login" component={LoginPage} />
     <Route path="/register" component={RegisterPage} />
-    <Route path="/dashboard" component={Dashboard} />
     <Route component={() => <Redirect to="/" />} />
   </Switch>
 );

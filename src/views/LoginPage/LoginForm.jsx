@@ -18,11 +18,14 @@ export default class LoginForm extends Component {
     this.state = {
       login: '',
       password: '',
+      errorMessage: '',
     };
   }
 
-  componentDidMount = () => {
-
+  handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      this.loginUser();
+    }
   }
 
   updateState = (stateName, e) => {
@@ -33,32 +36,44 @@ export default class LoginForm extends Component {
 
   loginUser = () => {
     const { login, password } = this.state;
+    this.setState({
+      errorMessage: '',
+    });
     axios.post(`${config.url}/login`, {
       login,
       password
     })
-      .then(function (response) {
+      .then(response => {
         localStorage.setItem('auth', response.data.authorized);
+        this.setState({errorMessage: ''});
         window.location.replace('/dashboard');
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(error => {
+        localStorage.setItem('auth', false);
+        this.setState({
+          errorMessage: error.message,
+          login: '',
+          password: '', 
+        });
       });
   }
 
   render() {
+    const error = this.state.errorMessage;
     return (
       <form className="login-form">
         <FormControl className="form-input">
           <InputLabel htmlFor="input-with-icon-adornment">Login</InputLabel>
           <Input
             id="input-with-icon-adornment"
+            value={this.state.login}
             startAdornment={
               <InputAdornment position="start">
                 <AccountCircle />
               </InputAdornment>
             }
             onChange={e => this.updateState('login', e)}
+            onKeyDown={e => this.handleEnter(e)}
           />
         </FormControl>
         <FormControl>
@@ -66,16 +81,23 @@ export default class LoginForm extends Component {
           <Input
             id="input-with-icon-adornment"
             type="password"
+            value={this.state.password}
             startAdornment={
               <InputAdornment position="start">
                 <Lock />
               </InputAdornment>
             }
             onChange={e => this.updateState('password', e)}
+            onKeyDown={e => this.handleEnter(e)}
           />
         </FormControl>
+        {error &&
+          <div class="error-message">
+            {error}
+          </div>
+        }
         <div className="form-buttons">
-          <Button variant="contained" color="primary" className="standard-btn login-btn" onClick={this.loginUser}>
+          <Button variant="contained" color="primary" className="standard-btn login-btn" onClick={this.loginUser} >
             Zaloguj
           </Button>
           <Button variant="contained" color="secondary" className="standard-btn register-btn">
