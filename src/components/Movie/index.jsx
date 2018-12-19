@@ -16,7 +16,6 @@ export default class Movie extends Component {
   }
   render() {
     const { data } = this.props;
-    console.log(data);
     return (
       <div className="movie">
         <Card className="movie-card">

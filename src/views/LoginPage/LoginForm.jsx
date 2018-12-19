@@ -45,11 +45,13 @@ export default class LoginForm extends Component {
     })
       .then(response => {
         localStorage.setItem('auth', response.data.authorized);
+        localStorage.setItem('role', response.data.role);
         this.setState({errorMessage: ''});
         window.location.replace('/dashboard');
       })
       .catch(error => {
         localStorage.setItem('auth', false);
+        localStorage.setItem('role', false);
         this.setState({
           errorMessage: error.message,
           login: '',
