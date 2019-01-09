@@ -5,6 +5,8 @@
     .main-content {
       flex-grow: 1;
       overflow-y: scroll;
+      position: relative;
+      background-color: #e2e2e2;
     }
   }
 }

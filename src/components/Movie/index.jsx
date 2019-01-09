@@ -7,6 +7,7 @@ import {
   CardActions,
   Button
 } from '@material-ui/core';
+import moment from 'moment';
 import moviePhoto from '../../assets/images/placeholder.png';
 import './style.scss';
 
@@ -19,25 +20,25 @@ export default class Movie extends Component {
     return (
       <div className="movie">
         <Card className="movie-card">
-          <CardActionArea>
+          <CardActionArea className="movie-card-action">
             <div className="movie-photo-block">
-              <img src={moviePhoto} alt="movie-poster" />
+              <img src={data.poster || moviePhoto} alt="movie-poster" />
             </div>
-            <CardContent>
+            <CardContent className="movie-card-content">
               <Typography gutterBottom variant="h5" component="h2">
-                {data.Tytul}
+                {data.Dzielo.Tytul}
               </Typography>
               <Typography component="p">
-                Reżyser: {data.Rezyser}
+                Reżyser: {data.Dzielo.Rezyser}
               </Typography>
               <Typography component="p">
-                Gatunek: Dramat
+                Gatunek: {data.Gatunek.NazwaGatunku}
               </Typography>
               <Typography component="p">
-                Rok produkcji: {data.RokProdukcji}
+                Rok produkcji: {moment(data.Dzielo.RokProdukcji).year()}
               </Typography>
               <Typography component="p">
-                Kraj: {data.Kraj}
+                Kraj: {data.Dzielo.Kraj}
               </Typography>
             </CardContent>
           </CardActionArea>

@@ -1,17 +1,63 @@
 @import '../../scss/main.scss';
 
+.ajax-loader {
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+}
+
 .search-form-wrapper {
-  background-color: rgb(218, 218, 218);
+  background-color: #fff;
   padding: 15px;
   .search-form {
     display: flex;
     justify-content: center;
     align-items: center;
     &> div {
+      flex-grow: 1;
       margin: 0 15px;
     }
     &> button {
+      flex-grow: 1;
       margin: 0 15px;
+      min-height: 56px;
+    }
+    .suggestion-list {
+      top: 100%;
+      background-color: #fff;
+      padding: 15px;
+      margin: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      border: 1px solid rgba(0, 0, 0, 0.23);
+      border-radius: 4px;
+      max-height: 160px;
+      overflow-y: scroll;
+      &.hidden {
+        display: none;
+      }
+      & option {
+        transition: all 0.05s ease-in-out;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+        padding: 4px 8px;
+        margin: 4px;
+        font-size: 14px;
+        &:hover {
+          cursor: pointer;
+          color: #fff;
+          background-color: #3f51b5;
+        }
+      }
     }
     .year-inputs {
       display: flex;

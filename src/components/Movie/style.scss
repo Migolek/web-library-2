@@ -1,6 +1,18 @@
 .movie {
   width: 250px;
   margin: 15px;
+  .movie-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .movie-card-action {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+  }
   .movie-photo-block img {
     width: 100%;
   }

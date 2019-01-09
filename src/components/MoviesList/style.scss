@@ -2,5 +2,18 @@
   display: flex;
   flex-wrap: wrap;
   padding: 15px;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+}
+
+.ajax-loader {
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
 }
