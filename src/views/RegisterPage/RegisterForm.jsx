@@ -133,7 +133,7 @@ export default class RegisterForm extends Component {
         />
         <TextField
           id="standard-street-input"
-          label="Ulica"
+          label="Ulica*"
           className="register-input"
           type="text"
           margin="normal"

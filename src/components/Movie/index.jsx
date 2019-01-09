@@ -4,9 +4,9 @@ import {
   CardActionArea,
   CardContent,
   Typography,
-  CardActions,
-  Button
+  CardActions
 } from '@material-ui/core';
+import MovieDialog from '../../components/MovieDialog';
 import moment from 'moment';
 import moviePhoto from '../../assets/images/placeholder.png';
 import './style.scss';
@@ -43,9 +43,7 @@ export default class Movie extends Component {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary">
-              Zarezerwuj
-            </Button>
+            <MovieDialog btnText="Zarezerwuj" movieData={data} />
           </CardActions>
         </Card>
       </div>

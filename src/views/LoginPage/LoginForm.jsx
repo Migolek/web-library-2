@@ -45,6 +45,7 @@ export default class LoginForm extends Component {
     })
       .then(response => {
         localStorage.setItem('auth', response.data.authorized);
+        localStorage.setItem('userID', response.data.userID);
         localStorage.setItem('role', response.data.role);
         this.setState({errorMessage: ''});
         window.location.replace('/dashboard');
