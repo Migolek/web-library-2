@@ -7,33 +7,38 @@ import {
   CardActions,
   Button
 } from '@material-ui/core';
-import moviePhoto from '../../assets/images/creed-2.jpg';
+import moment from 'moment';
+import moviePhoto from '../../assets/images/placeholder.png';
 import './style.scss';
 
 export default class Movie extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    const { data } = this.props;
     return (
       <div className="movie">
         <Card className="movie-card">
-          <CardActionArea>
+          <CardActionArea className="movie-card-action">
             <div className="movie-photo-block">
-              <img src={moviePhoto} alt="movie-poster" />
+              <img src={data.poster || moviePhoto} alt="movie-poster" />
             </div>
-            <CardContent>
+            <CardContent className="movie-card-content">
               <Typography gutterBottom variant="h5" component="h2">
-                Tytuł: Creed II
+                {data.Dzielo.Tytul}
               </Typography>
               <Typography component="p">
-                Reżyser: Steven Caple Jr.
+                Reżyser: {data.Dzielo.Rezyser}
               </Typography>
               <Typography component="p">
-                Gatunek: Dramat
+                Gatunek: {data.Gatunek.NazwaGatunku}
               </Typography>
               <Typography component="p">
-                Rok produkcji: 2018
+                Rok produkcji: {moment(data.Dzielo.RokProdukcji).year()}
               </Typography>
               <Typography component="p">
-                Kraj: USA
+                Kraj: {data.Dzielo.Kraj}
               </Typography>
             </CardContent>
           </CardActionArea>

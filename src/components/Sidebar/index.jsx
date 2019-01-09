@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { List, ListItem, ListItemText } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import './style.scss';
 
 function ListItemLink(props) {
@@ -12,26 +13,14 @@ export default class Sidebar extends Component {
       <div className="sidebar">
         <List component="nav">
           <ListItem button>
-            <ListItemText primary="Akcja" />
+            <Link to="/dashboard/admin/employees" >Zarządzaj pracownikami</Link>
           </ListItem>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary="Horror" />
-          </ListItemLink>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary="Western" />
-          </ListItemLink>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary="Sci-Fi" />
-          </ListItemLink>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary="Romans" />
-          </ListItemLink>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary="Komedia" />
-          </ListItemLink>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary="Dla dorosłych" />
-          </ListItemLink>
+          <ListItem button>
+            <Link to="/dashboard/admin/resources" >Zarządzaj zasobami</Link>
+          </ListItem>
+          <ListItem button>
+            <Link to="/dashboard/admin/statistics" >Przeglądaj statystyki</Link>
+          </ListItem>
         </List>
       </div>
     )

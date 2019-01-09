@@ -1,7 +1,14 @@
+.admin-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
 .dashboard-page-admin {
   justify-content: space-around;
   display: flex;
   padding: 30px;
+  flex: 1;
   .single-card {
     padding: 15px;
     .card-title {

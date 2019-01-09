@@ -8,6 +8,7 @@ import {
   Menu,
   MenuItem
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import './style.scss';
 
@@ -15,18 +16,20 @@ export default class Navbar extends Component {
   render() {
     return (
       <AppBar position="static" className="navbar">
-        <Toolbar>
-          <IconButton className="logo-box" color="inherit" aria-label="Menu">
-            <img className="logo-img" src={logo} alt="logo" />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className="logo-text">
-            Web library
-          </Typography>
+        <Toolbar className="toolbar">
+          <Link className="home-link" to="/">
+            <IconButton className="logo-box" color="inherit" aria-label="Menu">
+              <img className="logo-img" src={logo} alt="logo" />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className="logo-text">
+              Web library
+            </Typography>
+          </Link>
           <div>
             <IconButton
               aria-haspopup="true"
               color="inherit"
-              onClick={() => window.location.replace('/dashboard/admin')}
+              onClick={() => window.location.replace('/dashboard/admin/employees')}
             >
               <AccountCircle />
             </IconButton>
