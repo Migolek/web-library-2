@@ -51,8 +51,8 @@ export default class MoviesList extends Component {
           }
         });
         Promise.all(tmpMovies).then(data => {
-          this.setState({isFetching: false});
           this.setState({
+            isFetching: false,
             movies: data,
           });
         });

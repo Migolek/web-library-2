@@ -9,7 +9,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+import Loader from 'react-loader-spinner';
+import * as checkedIcon from '../../assets/icons/check.png';
+import * as errorIcon from '../../assets/icons/error.png';
 import './style.scss';
 
 const styles = theme => ({
@@ -21,22 +23,35 @@ const styles = theme => ({
 });
 
 class MovieInfoList extends React.Component {
-  state = {
-    checked: [0],
-    warehouseInfo: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: [],
+      warehouseInfo: [],
+      isFetching: false,
+      availableCarriers: 0,
+      carriersAmount: null,
+    };
+  }
 
-  componentDidMount = () => {
-    this.getWarehouseObjects();
+  componentDidMount = async () => {
+    await this.getWarehouseObjects();
+    await this.countCarriers();
   }
   
   getWarehouseObjects = async () => {
     const opusID = this.props.opusID;
+    this.setState({isFetching: true});
     await axios.get(`${config.url}/warehouse/${opusID}`)
       .then(response => {
-        this.setState({warehouseInfo: response.data});
+        console.log('response', response);
+        this.setState({
+          warehouseInfo: response.data,
+          isFetching: false,
+        });
       })
       .catch(error => {
+        this.setState({isFetching: false});
         console.log(error);
       });
   }
@@ -51,34 +66,82 @@ class MovieInfoList extends React.Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     this.setState({
       checked: newChecked,
     });
+    this.props.reserve(newChecked);
   };
+
+  renderCarriers = () => {
+    const { warehouseInfo } = this.state;
+    const { reserve } = this.props;
+    return warehouseInfo.map(item => {
+      return (
+        <ListItem 
+          role={undefined} 
+          dense 
+          button 
+          onClick={this.handleToggle(item)} 
+          disable={item.CzyWolne} 
+          className="item-list"
+        >
+          <Checkbox
+            checked={this.state.checked.indexOf(item) !== -1}
+            tabIndex={-1}
+            disableRipple
+          />
+          <ListItemText primary={item.Nosnik.Typ} />
+          <ListItemSecondaryAction>
+            <IconButton aria-label="Comments">
+              <span>
+                {item.CzyWolne && 
+                  <img src={checkedIcon} alt="checked"/>
+                }
+                {!item.CzyWolne && 
+                  <img src={errorIcon} alt="notChecked"/>
+                }
+              </span>
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      );
+    });
+  }
+
+  countCarriers = () => {
+    const array = this.state.warehouseInfo;
+    let available = 0;
+    array.map(item => {
+      if (item.CzyWolne) {
+        available = available + 1;
+      }
+    });
+    this.setState({
+      carriersAmount: array.length,
+      availableCarriers: available,
+    });
+  }
 
   render() {
     const { classes } = this.props;
-    const { warehouseInfo } = this.state;
-    console.log(this.props, this.state);
+    const { isFetching, availableCarriers, carriersAmount } = this.state;
     return (
-      <List className={(classes.root, 'carriers-list')}>
-        {warehouseInfo.length > 0 && warehouseInfo.map(value => (
-          <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
-            <Checkbox
-              checked={this.state.checked.indexOf(value) !== -1}
-              tabIndex={-1}
-              disableRipple
-            />
-            <ListItemText primary={'asd'} />
-            <ListItemSecondaryAction>
-              <IconButton aria-label="Comments">
-                <span>1</span>
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
+      <React.Fragment>
+        {isFetching &&
+          <div className="ajax-loader">
+            <Loader 
+              type="Triangle"
+              color="#3f51b5"
+              height="100"	
+              width="100"
+            />  
+          </div>
+        }
+        <List className={(classes.root, 'carriers-list')}>
+          <div className="available-carriers">{`Dostępne nosniki: ${availableCarriers}/${carriersAmount}`}</div>
+          {this.renderCarriers()}
+        </List>
+      </React.Fragment>
     );
   }
 }

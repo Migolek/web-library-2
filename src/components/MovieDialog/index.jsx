@@ -10,6 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import MovieInfoList from '../MovieInfoList';
+import Loader from 'react-loader-spinner';
 
 class MovieDialog extends React.Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class MovieDialog extends React.Component {
 
     this.state = {
       open: false,
+      isFetching: false,
       user: [],
+      checkedCarriers: [],
     };
   }
 
@@ -27,11 +30,16 @@ class MovieDialog extends React.Component {
   
   getSingleUserInfo = async () => {
     const userID = localStorage.getItem('userID');
+    this.setState({isFetching: true});
     await axios.get(`${config.url}/users/${userID}`)
       .then(response => {
-        this.setState({user: response.data});
+        this.setState({
+          user: response.data,
+          isFetching: false,
+        });
       })
       .catch(error => {
+        this.setState({isFetching: false});
         console.log(error);
       });
   }
@@ -40,12 +48,21 @@ class MovieDialog extends React.Component {
     this.setState({ open: true });
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
+  handleClose = async () => {
+    await this.reserveCarrier();
+    await this.setState({ open: false });
   };
 
+  getCheckedCarrier = carrier => {
+    this.setState({checkedCarriers: carrier});
+  }
+
+  reserveCarrier = () => {
+    console.log(this.state.checkedCarriers);
+  }
+
   render() {
-    const { user } = this.state;
+    const { user, isFetching } = this.state;
     const { fullScreen, movieData } = this.props;
 
     return (
@@ -62,7 +79,17 @@ class MovieDialog extends React.Component {
           <DialogTitle id="responsive-dialog-title">{`Zarezerwuj ${movieData.Dzielo.Tytul} już dziś!`}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              <MovieInfoList opusID={movieData.Dzielo.ID}/>
+              {isFetching &&
+                <div className="ajax-loader">
+                  <Loader 
+                    type="Triangle"
+                    color="#3f51b5"
+                    height="100"	
+                    width="100"
+                  />  
+                </div>
+              }
+              <MovieInfoList reserve={this.getCheckedCarrier} opusID={movieData.Dzielo.ID}/>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
