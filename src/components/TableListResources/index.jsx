@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Button } from '@material-ui/core';
+import config from '../../config/api';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -37,13 +39,55 @@ const rows = [
 class SimpleTable extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      resources: {
+        rows: []
+      },
+      count: [],
+    }
+  }
+
+  componentDidMount = async () => {
+    await this.getResources();
   }
   
+  
+  getResources = async () => {
+    await axios.get(`${config.url}/warehouse`)
+      .then(response => {
+        this.setState({
+          resources: response.data,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  renderList = () => {
+    console.log('object', this.state.resources.rows);
+    const data = this.state.resources.rows;
+    return data.map(row => {
+      return (
+        <TableRow key={row.ID}>
+          <TableCell component="th" scope="row">
+            {row.Dzielo.Tytul}
+          </TableCell>
+          <TableCell numeric>{row.amount}</TableCell>
+          <TableCell numeric>{this.buttons()}</TableCell>
+          <TableCell numeric>{this.btnRemoveMovie()}</TableCell>
+        </TableRow>
+      );
+    })
+  }
+
 
   buttons = () => { return (<div><Button variant="contained" color="secondary">Dodaj kopię</Button><Button variant="contained" color="primary">Usuń kopię</Button></div>)};
   btnRemoveMovie = () => <Button variant="contained" color="#EC4424">Usuń film</Button>;
 
   render() {
+    console.log(this.state.resources);
     const { classes } = this.props;
     return (
       <Paper className={classes.root}>
@@ -57,18 +101,7 @@ class SimpleTable extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => {
-              return (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell numeric>{row.amount}</TableCell>
-                  <TableCell numeric>{this.buttons()}</TableCell>
-                  <TableCell numeric>{this.btnRemoveMovie()}</TableCell>
-                </TableRow>
-              );
-            })}
+            {this.renderList()}
           </TableBody>
         </Table>
       </Paper>

@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import MovieInfoList from '../MovieInfoList';
 import Loader from 'react-loader-spinner';
+import './style.scss';
 
 class MovieDialog extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class MovieDialog extends React.Component {
       isFetching: false,
       user: [],
       checkedCarriers: [],
+      message: '',
     };
   }
 
@@ -48,17 +50,49 @@ class MovieDialog extends React.Component {
     this.setState({ open: true });
   };
 
-  handleClose = async () => {
-    await this.reserveCarrier();
-    await this.setState({ open: false });
+  handleClose = async reserve => {
+    await this.reserveCarrier(reserve);
   };
 
   getCheckedCarrier = carrier => {
     this.setState({checkedCarriers: carrier});
   }
 
-  reserveCarrier = () => {
-    console.log(this.state.checkedCarriers);
+  reserveCarrier = async reserve => {
+    if(reserve) {
+      await axios.put(`${config.url}/warehouse/reserve`, {
+        data: this.state.checkedCarriers,
+      })
+        .then(response => {
+          this.setState({
+            isFetching: false,
+            message: response.data,
+          });
+          setTimeout(() => {
+            this.setState({
+              open: false,
+              message: '',
+            });
+          }, 1000);
+        })
+        .catch(error => {
+          this.setState({
+            isFetching: false,
+            message: error.message,
+          });
+          setTimeout(() => {
+            this.setState({
+              open: false,
+              message: '',
+            });
+          }, 1000);
+        });
+    } else {
+      this.setState({
+        open: false,
+        message: '',
+      });
+    }
   }
 
   render() {
@@ -73,7 +107,7 @@ class MovieDialog extends React.Component {
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
-          onClose={this.handleClose}
+          onClose={() => this.handleClose(false)}
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">{`Zarezerwuj ${movieData.Dzielo.Tytul} już dziś!`}</DialogTitle>
@@ -92,11 +126,12 @@ class MovieDialog extends React.Component {
               <MovieInfoList reserve={this.getCheckedCarrier} opusID={movieData.Dzielo.ID}/>
             </DialogContentText>
           </DialogContent>
+          <div className="movies-info-message">{this.state.message}</div>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={() => this.handleClose(false)} color="secondary">
               Anuluj
             </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
+            <Button onClick={() => this.handleClose(true)} color="primary" autoFocus>
               Zarezerwuj
             </Button>
           </DialogActions>

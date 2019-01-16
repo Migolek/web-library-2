@@ -61,7 +61,7 @@ class MovieInfoList extends React.Component {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
-    if (currentIndex === -1) {
+    if (currentIndex === -1 && value.CzyWolne === true) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
@@ -69,7 +69,9 @@ class MovieInfoList extends React.Component {
     this.setState({
       checked: newChecked,
     });
-    this.props.reserve(newChecked);
+    if (newChecked.length > 0) {
+      this.props.reserve(newChecked);
+    }
   };
 
   renderCarriers = () => {
