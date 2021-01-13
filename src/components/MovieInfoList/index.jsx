@@ -38,7 +38,7 @@ class MovieInfoList extends React.Component {
     await this.getWarehouseObjects();
     await this.countCarriers();
   }
-  
+
   getWarehouseObjects = async () => {
     const opusID = this.props.opusID;
     this.setState({isFetching: true});
@@ -76,15 +76,15 @@ class MovieInfoList extends React.Component {
 
   renderCarriers = () => {
     const { warehouseInfo } = this.state;
-    const { reserve } = this.props;
+
     return warehouseInfo.map(item => {
       return (
-        <ListItem 
-          role={undefined} 
-          dense 
-          button 
-          onClick={this.handleToggle(item)} 
-          disable={item.CzyWolne} 
+        <ListItem
+          role={undefined}
+          dense
+          button
+          onClick={this.handleToggle(item)}
+          disable={item.CzyWolne}
           className="item-list"
         >
           <Checkbox
@@ -96,10 +96,10 @@ class MovieInfoList extends React.Component {
           <ListItemSecondaryAction>
             <IconButton aria-label="Comments">
               <span>
-                {item.CzyWolne && 
+                {item.CzyWolne &&
                   <img src={checkedIcon} alt="checked"/>
                 }
-                {!item.CzyWolne && 
+                {!item.CzyWolne &&
                   <img src={errorIcon} alt="notChecked"/>
                 }
               </span>
@@ -131,12 +131,12 @@ class MovieInfoList extends React.Component {
       <React.Fragment>
         {isFetching &&
           <div className="ajax-loader">
-            <Loader 
+            <Loader
               type="Triangle"
               color="#3f51b5"
-              height="100"	
+              height="100"
               width="100"
-            />  
+            />
           </div>
         }
         <List className={(classes.root, 'carriers-list')}>

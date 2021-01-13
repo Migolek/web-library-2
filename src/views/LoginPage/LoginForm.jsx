@@ -56,7 +56,7 @@ export default class LoginForm extends Component {
         this.setState({
           errorMessage: error.message,
           login: '',
-          password: '', 
+          password: '',
         });
       });
   }
@@ -95,7 +95,7 @@ export default class LoginForm extends Component {
           />
         </FormControl>
         {error &&
-          <div class="error-message">
+          <div className="error-message">
             {error}
           </div>
         }

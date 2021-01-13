@@ -3,14 +3,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #8dd0a294;
+
   .card-box {
     padding: 30px 45px;
+    background-color: #33bf5887;
   }
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
+
   .form-input {
     margin-bottom: 40px;
     display: flex;
@@ -40,6 +44,6 @@
     max-width: 250px;
   }
   .login-title {
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
   }
 }
